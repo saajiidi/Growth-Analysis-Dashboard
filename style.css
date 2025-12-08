@@ -1,0 +1,207 @@
+/* Modern Dashboard Styling */
+:root {
+    /* Colors */
+    --primary-color: #FF5722;
+    /* Deep Orange */
+    --primary-hover: #F4511E;
+    --bg-color: #f8f9fa;
+    --text-color: #2c3e50;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+    /* Dark Mode Defaults (can be toggled) */
+    --dark-bg-color: #1a1a1a;
+    --dark-text-color: #ecf0f1;
+    --dark-card-bg: #2d2d2d;
+    --dark-border-color: #404040;
+}
+
+/* Theme Application */
+[data-theme="dark"] {
+    --bg-color: var(--dark-bg-color);
+    --text-color: var(--dark-text-color);
+    --card-bg: var(--dark-card-bg);
+    --border-color: var(--dark-border-color);
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Layout */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.header-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.btn {
+    text-decoration: none;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: transform 0.2s, background-color 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.theme-toggle:hover {
+    background-color: var(--border-color);
+}
+
+/* Section Headings */
+h2 {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* Summary Cards Grid */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.metric-card {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+}
+
+.metric-card h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+}
+
+.metric-card .value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Charts Grid */
+.charts-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.chart-card {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+/* Full width for maps or large charts if needed */
+.chart-card.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Plotly overrides to fit container */
+.plotly-graph-div {
+    width: 100% !important;
+    height: 400px !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 1rem;
+    }
+
+    .charts-wrapper {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .header-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .metric-card .value {
+        font-size: 1.5rem;
+    }
+}
