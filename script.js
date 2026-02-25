@@ -1,24 +1,31 @@
-// Theme Toggle Logic
+// Theme Toggle Logic with Persistence
 const toggleBtn = document.getElementById('theme-toggle');
 const body = document.body;
-const icon = toggleBtn.querySelector('span');
 
-// Check local storage for meaningful default
-const currentTheme = localStorage.getItem('theme');
-if (currentTheme) {
-    body.setAttribute('data-theme', currentTheme);
-    updateIcon(currentTheme);
-}
+// Initialize theme from localStorage
+const savedTheme = localStorage.getItem('theme') || 'light';
+body.setAttribute('data-theme', savedTheme);
+updateToggleUI(savedTheme);
 
 toggleBtn.addEventListener('click', () => {
-    const isDark = body.getAttribute('data-theme') === 'dark';
-    const newTheme = isDark ? 'light' : 'dark';
+    const currentTheme = body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
     body.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
-    updateIcon(newTheme);
+    updateToggleUI(newTheme);
 });
 
-function updateIcon(theme) {
-    icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+function updateToggleUI(theme) {
+    const span = toggleBtn.querySelector('span');
+    span.textContent = theme === 'dark' ? '🌙' : '☀️';
+
+    // Optional: Update Plotly charts theme colors here if theme changes
+    // This would require replotting with new layout colors
 }
+
+// Global Chart Resizing
+window.addEventListener('resize', () => {
+    const plots = document.querySelectorAll('.js-plotly-plot');
+    plots.forEach(plot => Plotly.Plots.resize(plot));
+});

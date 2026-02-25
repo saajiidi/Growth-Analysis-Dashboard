@@ -1,3 +1,6 @@
-dash
+streamlit
 plotly
 pandas
+numpy
+dash
+scikit-learn
